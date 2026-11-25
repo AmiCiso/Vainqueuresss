@@ -1,0 +1,26 @@
+{
+  "_notice": "Small hand-labeled regression corpus. It pins CURRENT behavior of the heuristics so unintended changes are noticed. It is NOT a measure of real-world detection accuracy and must not be cited as one. All hosts are synthetic or well-known benign sites; no real malicious URLs are included.",
+  "cases": [
+    { "id": "benign-own-site", "label": "benign", "input": "https://vainqueures.com", "bands": ["none"], "mustNotFlag": ["tld", "keyword-stuffing", "brand-stacking"] },
+    { "id": "benign-google", "label": "benign", "input": "https://www.google.com/search?q=cats", "bands": ["none"] },
+    { "id": "benign-github", "label": "benign", "input": "https://github.com/anthropics", "bands": ["none"] },
+    { "id": "benign-promo-words", "label": "benign", "input": "https://shop.example.org/claim-your-loyalty-bonus", "bands": ["low", "suspicious"], "mustFlag": ["lure-words"], "note": "marketing words are indicators only; must not reach 'high'" },
+    { "id": "benign-idn", "label": "benign", "input": "https://xn--bcher-kva.example.org/", "bands": ["low", "none"], "mustFlag": ["idn"], "note": "IDN is an indicator, not proof" },
+    { "id": "benign-installer-from-trusted", "label": "benign", "input": "https://github.com/org/repo/releases/download/v1/tool.exe", "bands": ["low"], "mustFlag": ["download-ext"], "note": "trusted host must not suppress download indicator" },
+    { "id": "benign-long-url", "label": "benign", "input": "https://news.example.org/a?utm_source=x&utm_campaign=yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy&z=1", "bands": ["low"], "mustFlag": ["payload-length"] },
+    { "id": "susp-demo-decoy", "label": "suspicious", "input": "https://register.ap-my1.com/aplly", "bands": ["high"], "mustFlag": ["demo-decoy", "typosquat", "demo-fixture"] },
+    { "id": "susp-lookalike-bank", "label": "suspicious", "input": "https://cimbcllcks-secure-login.top/auth", "bands": ["high"], "mustFlag": ["typosquat", "tld"] },
+    { "id": "susp-raw-ip-apk", "label": "suspicious", "input": "http://185.220.101.5:8080/update.apk", "bands": ["high"], "mustFlag": ["raw-ip", "port", "http", "download-ext"] },
+    { "id": "susp-courier-impersonation", "label": "suspicious", "input": "https://poslaju-redelivery.top/track", "bands": ["suspicious", "high"], "mustFlag": ["agency"] },
+    { "id": "susp-paypal-brand-subdomain", "label": "suspicious", "input": "https://paypal.com.account-verify.example.net/login", "bands": ["suspicious", "high"], "mustFlag": ["brand-stacking"] },
+    { "id": "susp-paypal-on-ugc", "label": "suspicious", "input": "https://paypal-login.github.io/", "bands": ["suspicious", "high"], "mustFlag": ["ugc", "brand-stacking"] },
+    { "id": "adv-nested-second-destination", "label": "adversarial", "input": "https://good.example.org/r?a=https%3A%2F%2Fgoogle.com%2F&b=https%3A%2F%2Fcimbcllcks-secure-login.top%2Fauth", "bands": ["suspicious", "high"], "mustFlag": ["nested"], "note": "harmless first destination must not hide the suspicious second one" },
+    { "id": "adv-nested-double-encoded", "label": "adversarial", "input": "https://good.example.org/?url=https%253A%252F%252Fcimbcllcks-secure-login.top%252Fauth", "bands": ["suspicious", "high"], "mustFlag": ["nested", "encoding"] },
+    { "id": "adv-nested-path-embedded", "label": "adversarial", "input": "https://good.example.org/go/https%3A%2F%2F185.220.101.5%3A8080%2Fupdate.apk", "bands": ["suspicious", "high"], "mustFlag": ["nested"] },
+    { "id": "adv-trusted-with-port", "label": "adversarial", "input": "https://google.com:8443/login", "bands": ["low"], "mustFlag": ["port"], "note": "trusted exemption must not hide port indicator" },
+    { "id": "adv-ugc-on-trusted-parent", "label": "adversarial", "input": "https://sites.google.com/view/anything", "bands": ["low"], "mustFlag": ["ugc"] },
+    { "id": "adv-obfuscated-ip", "label": "adversarial", "input": "http://0x7f000001.example.org/", "bands": ["none", "low"], "note": "not an IP host; regression guard only" },
+    { "id": "adv-decimal-ip", "label": "adversarial", "input": "http://3232235777/", "bands": ["suspicious", "high"], "mustFlag": ["raw-ip", "script-mixing"], "note": "integer-form IP over plain HTTP: deliberate obfuscation plus raw IP" },
+    { "id": "adv-cyrillic-mix", "label": "adversarial", "input": "https://pаypal.example.org/", "bands": ["low", "suspicious", "high"], "mustFlag": ["script-mixing", "idn"], "note": "contains a Cyrillic 'а'" }
+  ]
+}

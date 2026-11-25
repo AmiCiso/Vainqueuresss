@@ -1,0 +1,88 @@
+/* VAINQUEURES site styles. Built by `npm run build:css` (Tailwind CSS v4 compiler API).
+   The @theme block below pins the exact palette/shadow values the site used with the Tailwind v3 CDN build,
+   so the neutral-and-red identity is preserved. Pixel parity with the old runtime CDN build was not measured. */
+@import "tailwindcss";
+
+@theme {
+  --color-apple-canvas: #FFFFFF;
+  --color-apple-surface: #F5F5F7;
+  --color-apple-surfaceHover: #EBEBEF;
+  --color-apple-border: #E5E7EB;
+  --color-apple-textPrimary: #1D1D1F;
+  --color-apple-textSecondary: #6E6E73;
+  --color-apple-dark: #0B0B0C;
+  --color-apple-darkSurface: #161617;
+  --color-apple-card: #FAFAFC;
+  --color-apple-red: #E11D48;
+  --color-apple-redLight: #FFE4E6;
+  --font-sans: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --color-neutral-100: #f5f5f5;
+  --color-neutral-200: #e5e5e5;
+  --color-neutral-300: #d4d4d4;
+  --color-neutral-400: #a3a3a3;
+  --color-neutral-500: #737373;
+  --color-neutral-600: #525252;
+  --color-neutral-700: #404040;
+  --color-neutral-800: #262626;
+  --color-neutral-900: #171717;
+  --color-rose-50: #fff1f2;
+  --color-rose-100: #ffe4e6;
+  --color-rose-200: #fecdd3;
+  --color-rose-300: #fda4af;
+  --color-rose-400: #fb7185;
+  --color-rose-600: #e11d48;
+  --color-rose-700: #be123c;
+  --color-rose-800: #9f1239;
+  --color-amber-50: #fffbeb;
+  --color-amber-100: #fef3c7;
+  --color-amber-200: #fde68a;
+  --color-amber-300: #fcd34d;
+  --color-amber-400: #fbbf24;
+  --color-amber-500: #f59e0b;
+  --color-amber-600: #d97706;
+  --color-amber-700: #b45309;
+  --color-amber-800: #92400e;
+  --color-amber-900: #78350f;
+  --color-emerald-50: #ecfdf5;
+  --color-emerald-100: #d1fae5;
+  --color-emerald-200: #a7f3d0;
+  --color-emerald-300: #6ee7b7;
+  --color-emerald-500: #10b981;
+  --color-emerald-600: #059669;
+  --color-emerald-700: #047857;
+  --color-emerald-800: #065f46;
+  --color-emerald-900: #064e3b;
+  --color-emerald-950: #022c22;
+  --color-purple-50: #faf5ff;
+  --color-purple-200: #e9d5ff;
+  --color-purple-600: #9333ea;
+  --color-purple-700: #7e22ce;
+  --color-blue-50: #eff6ff;
+  --color-blue-200: #bfdbfe;
+  --color-blue-600: #2563eb;
+  --color-blue-700: #1d4ed8;
+}
+
+/* Tailwind v3 -> v4 behavioural compatibility (documented upgrade guide defaults) */
+@layer base {
+  *, ::after, ::before, ::backdrop, ::file-selector-button { border-color: #e5e7eb; }
+  ::placeholder { color: #9ca3af; }
+  button:not(:disabled), [role="button"]:not(:disabled) { cursor: pointer; }
+}
+
+body { background-color: #FFFFFF; color: #1D1D1F; -webkit-font-smoothing: antialiased; }
+.apple-glass { background: rgba(255, 255, 255, 0.94); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); }
+.apple-gradient-text { background: linear-gradient(180deg, #111827 0%, #4B5563 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: #F5F5F7; }
+::-webkit-scrollbar-thumb { background: #D1D5DB; border-radius: 9999px; }
+.logo-clean { transition: transform 0.3s ease, box-shadow 0.3s ease; }
+.logo-clean:hover { transform: scale(1.02); }
+:focus-visible { outline: 2px solid #111827; outline-offset: 2px; }
+
+/* Honest "work in progress" indicator: purely decorative motion, no percentage is implied. */
+@keyframes vq-slide { 0% { transform: translateX(-100%); } 100% { transform: translateX(300%); } }
+.vq-indeterminate { animation: vq-slide 1.2s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) { .vq-indeterminate { animation: none; } .logo-clean { transition: none; } }

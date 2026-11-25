@@ -1,0 +1,35 @@
+{
+  "name": "vainqueures-threat-gateway",
+  "version": "2.1.0",
+  "private": true,
+  "type": "module",
+  "description": "VAINQUEURES site and VanQ Omni threat-scanner gateway",
+  "main": "server.js",
+  "engines": { "node": ">=20.12.0" },
+  "scripts": {
+    "build:js": "node scripts/build-js.mjs",
+    "build:css": "node scripts/build-css.mjs",
+    "build": "npm run build:js && npm run build:css",
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "test": "node scripts/run-tests.mjs test/unit test/http",
+    "test:unit": "node scripts/run-tests.mjs test/unit",
+    "test:http": "node scripts/run-tests.mjs test/http",
+    "test:browser": "node scripts/run-tests.mjs test/browser",
+    "check:layout": "node scripts/check-public-layout.mjs"
+  },
+  "dependencies": {
+    "express": "^4.21.2",
+    "express-rate-limit": "^7.5.0"
+  },
+  "optionalDependencies": {
+    "rate-limit-redis": "^4.2.0",
+    "redis": "^4.7.0"
+  },
+  "devDependencies": {
+    "esbuild": "^0.28.2",
+    "playwright": "^1.63.0",
+    "psl": "^1.15.0",
+    "tailwindcss": "^4.3.3"
+  }
+}
